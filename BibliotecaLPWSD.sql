@@ -83,6 +83,8 @@ CREATE TABLE IF NOT EXISTS `BibliotecaLPWSD`.`Usuario` (
   `email` VARCHAR(100) NOT NULL,
   `usuario` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
+  `foto` VARCHAR(45) NULL DEFAULT NULL,
+  `arquivo` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `usuario_UNIQUE` (`usuario` ASC) )
 ENGINE = InnoDB
