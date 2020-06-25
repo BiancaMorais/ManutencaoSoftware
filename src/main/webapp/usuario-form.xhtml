@@ -335,6 +335,102 @@
                         </div>
                         
                     </div>
+                  
+                  <div class="ui-material">
+                            
+                            <p:fileUpload id="inptFoto"
+                                          value="#{usuarioFormBean.uploadedFile}"
+                                          mode="simple" 
+                                          skinSimple="true"
+                                          dragDropSupport="true"
+                                          label="Selecione"
+                                          multiple="false"
+                                          allowTypes="/(\.|\/)(gif|jpeg|jpg|png|GIF|JPEG|JPG|PNG)$/"
+                                          invalidFileMessage="O arquivo selecionado não é uma imagem"
+                                          rendered="#{usuarioFormBean.usuario.foto == null}"/>
+                            
+                            <p:graphicImage value="/resources/arquivos/#{usuarioFormBean.usuario.foto}"
+                                            rendered="#{usuarioFormBean.usuario.foto != null}"
+                                            height="150"/> 
+                            
+                            <p:commandButton value="Apagar"
+                                             action="#{usuarioFormBean.delete(1)}"
+                                             process="@this"
+                                             icon="fa fa-trash"
+                                             styleClass="btn-danger"
+                                             rendered="#{usuarioFormBean.usuario.foto != null}"
+                                             ajax="true"
+                                             update="@form">
+
+                            <f:setPropertyActionListener value="true"
+                                                         target="#{facesContext.externalContext.flash.keepMessages}"/>
+
+                            <p:confirm header="Confirmação"
+                                       message="Você tem certeza?"
+                                       icon="ui-icon-danger"/>
+
+                            </p:commandButton>
+                            
+                            <span class="help-block"> 
+                            
+                                <p:message for="inptCapa"/>
+                            
+                            </span>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="ui-g-6 ui-sm-12">
+                        <div class="ui-sm-12 ui-g-11">
+                            
+                            <p:outputLabel value="Arquivo"/>
+                            
+                        </div>
+                        
+                        <div class="ui-material">
+                            
+                            <p:fileUpload id="inptArquivo"
+                                          value="#{usuarioFormBean.uploadedFile}"
+                                          mode="simple" 
+                                          skinSimple="true"
+                                          dragDropSupport="true"
+                                          label="Selecione"
+                                          multiple="false"
+                                          accept="application/pdf"
+                                          invalidFileMessage="O arquivo selecionado não é um pdf"
+                                          rendered="#{usuarioFormBean.usuario.arquivo == null}"/>
+                            
+                            <h:outputText value="#{usuarioFormBean.usuario.arquivo}"
+                                          rendered="#{usuarioFormBean.usuario.arquivo != null}"/>
+                            
+                            <p:commandButton value="Apagar"
+                                             action="#{usuarioFormBean.delete(2)}"
+                                             process="@this"
+                                             icon="fa fa-trash"
+                                             styleClass="btn-danger"
+                                             rendered="#{usuarioFormBean.usuario.arquivo != null}"
+                                             ajax="true"
+                                             update="@form">
+
+                            <f:setPropertyActionListener value="true"
+                                                         target="#{facesContext.externalContext.flash.keepMessages}"/>
+
+                            <p:confirm header="Confirmação"
+                                       message="Você tem certeza?"
+                                       icon="ui-icon-danger"/>
+
+                            </p:commandButton>
+                            
+                            <span class="help-block"> 
+                            
+                                <p:message for="inptArquivo"/>
+                            
+                            </span>
+                            
+                        </div>
+                        
+                    </div>
                     
                 </div>
                 
