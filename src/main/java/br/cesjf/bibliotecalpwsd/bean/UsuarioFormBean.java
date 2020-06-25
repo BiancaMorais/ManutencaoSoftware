@@ -29,6 +29,8 @@ public class UsuarioFormBean implements Serializable {
     private Usuario usuario;
     private Long id;
     Map<String, String> tipos;
+    private UploadedFile uploadedFile;
+    private final String diretorio;
 
     //construtor
     public UsuarioFormBean() {
@@ -39,6 +41,9 @@ public class UsuarioFormBean implements Serializable {
         tipos.put("Funcionário", "3");
         tipos.put("Bibliotecário", "4");
         tipos.put("Administrador", "5");
+        
+        ExternalContext e = FacesContext.getCurrentInstance().getExternalContext();
+        diretorio = e.getRealPath("resources\\arquivos");
     }
     
     public void init() {
