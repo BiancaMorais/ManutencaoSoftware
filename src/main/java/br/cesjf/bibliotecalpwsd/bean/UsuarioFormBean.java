@@ -103,5 +103,72 @@ public class UsuarioFormBean implements Serializable {
     public void setTipos(Map<String, String> tipos) {
         this.tipos = tipos;
     }
+    
+    public String getFoto() {
+        return diretorio + "\\" + usuario.getArquivo();
+    }
+
+    public UploadedFile getUploadedFile() {
+        return uploadedFile;
+    }
+
+    public void setUploadedFile(UploadedFile uploadedFile) {
+        this.uploadedFile = uploadedFile;
+        upload();
+    }
+    
+    public void upload() {
+        
+        if(uploadedFile != null) {
+            
+            File dir = new File(diretorio);
+
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            try {
+                String name = new Timestamp(System.currentTimeMillis()).toString();
+                name = name.replace("-", "").replace(".", "").replace(":", "").replace(" ", "");
+                name = name + uploadedFile.getFileName();
+                File file = new File(dir, name);
+                OutputStream out = new FileOutputStream(file);
+                out.write(uploadedFile.getContents());
+                out.close();
+                msgScreen("O arquivo " + uploadedFile.getFileName() + " foi salvo!");
+                if(uploadedFile.getFileName().toUpperCase().contains(".PDF")){
+                    usuario.setArquivo(name);
+                }else{
+                    usuario.setFoto(name);
+                }
+                uploadedFile = null;
+            } catch(IOException e) {
+               msgScreen("Não foi possível salvar o arquivo " + uploadedFile.getFileName() + "!" + e);
+            }
+        }
+    }
+    
+    public void delete(int i) {
+        
+        File file;
+        if(i == 1 && usuario.getFoto() != null) {
+            file = new File(diretorio + "\\" + usuario.getFoto());
+            file.delete();
+        } else if(i == 2 && usuario.getArquivo() != null) {
+            file = new File(diretorio + "\\" + usuario.getArquivo());
+            file.delete();
+        }
+        
+        msgScreen("Arquivo apagado com sucesso");
+        
+        if(i == 1) {
+            usuario.setFoto(null);
+        } else {
+            usuario.setArquivo(null);
+        }
+        
+        new UsuarioDAO().persistir(usuario);
+        
+    }
 
 }
