@@ -58,6 +58,10 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "senha")
     private String senha;
+    @Column(name = "foto")
+    private String foto;
+    @Column(name = "arquivo")
+    private String arquivo;
     @OneToMany(mappedBy = "idUsuario")
     private List<Emprestimo> emprestimoList;
     @OneToMany(mappedBy = "idUsuario")
@@ -142,6 +146,22 @@ public class Usuario implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+    
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public String getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(String arquivo) {
+        this.arquivo = arquivo;
     }
 
     @XmlTransient
